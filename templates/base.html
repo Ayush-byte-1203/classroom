@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>EduConnect</span>
+            </a>
+            <div class="user-menu">
+                <i class="fas fa-bell" id="notifications-btn"></i>
+                <i class="fas fa-envelope" id="messages-btn"></i>
+                <div class="user-avatar" id="user-menu-btn">JD</div>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="{{ url_for('index') }}" class="menu-item {% if request.path == '/' %}active{% endif %}">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('schedule') }}" class="menu-item {% if request.path == '/schedule' %}active{% endif %}">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('courses') }}" class="menu-item {% if request.path == '/courses' %}active{% endif %}">
+                        <i class="fas fa-book"></i>
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('assignments') }}" class="menu-item {% if request.path == '/assignments' %}active{% endif %}">
+                        <i class="fas fa-tasks"></i>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('resources') }}" class="menu-item {% if request.path == '/resources' %}active{% endif %}">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Resources</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('classmates') }}" class="menu-item {% if request.path == '/classmates' %}active{% endif %}">
+                        <i class="fas fa-users"></i>
+                        <span>Classmates</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('grades') }}" class="menu-item {% if request.path == '/grades' %}active{% endif %}">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Grades</span>
+                    </a>
+                </li>
+                
+                <li class="divider"></li>
+                
+                <li>
+                    <a href="{{ url_for('settings') }}" class="menu-item {% if request.path == '/settings' %}active{% endif %}">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('help') }}" class="menu-item {% if request.path == '/help' %}active{% endif %}">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Doubt Resolution Modal -->
+    <div id="doubt-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Ask Your Question</h3>
+            <form id="doubt-form">
+                <div class="form-group">
+                    <textarea id="doubt-input" class="form-control" rows="5" 
+                              placeholder="What's your doubt or question?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-join">Get Answer</button>
+            </form>
+            <div id="doubt-response" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- Gesture Recognition Panel -->
+    <div id="gesture-panel" class="floating-panel">
+        <h4>Gesture Recognition</h4>
+        <video id="video-feed" width="320" height="240" autoplay></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <button id="capture-btn" class="btn btn-sm btn-primary">Capture Gesture</button>
+        <div id="gesture-result" style="margin-top: 1rem;"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
